@@ -1,16 +1,28 @@
 {
-  "name": "sie-reader",
+  "name": "libsie",
   "version": "0.1.0",
-  "description": "SIE file reader",
+  "description": "SIE file reader/writer",
   "main": "index.js",
-  "browser": "browser.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/holar2b/node-sie-reader.git"
+    "url": "https://github.com/airnumby/libsie.git"
   },
   "scripts": {
-    "test": "node test/test.js"
+    "test": "mocha -r ts-node/register 'test/*.ts'"
   },
-  "author": "holar2b",
-  "license": "MIT"
+  "author": "holar2b, airnumby",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.11.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-airbnb-typescript": "^14.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "mocha": "^9.1.3",
+    "ts-node": "^10.3.0",
+    "typescript": "^4.4.4"
+  }
 }
