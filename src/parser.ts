@@ -1,4 +1,6 @@
-﻿import {SieFile, ISieNode, SieNode, SieChildNode, PostType} from './SieFile';
+﻿import { Elements, AttrDef } from './format/Elements';
+import { ISieNode, SieNode, SieChildNode } from './format/SieNode';
+import {SieFile } from './SieFile';
 
 
 
@@ -123,58 +125,6 @@ const parseAttrs = (row: SieChildNode, tokens: Token[]) => {
     }
 
     const valuesOnly = (tokens: Token[]) => tokens.map(t => 'value' in t ? t.value : undefined);
-
-interface AttrDef {name: string, type: string[], many?: boolean }
-
-const Elements: Record<string, (string | AttrDef)[]> = {
-  adress: [ 'kontakt', 'utdelningsadr', 'postadr', 'tel' ],
-  bkod: [ 'SNI-kod' ],
-  dim: [ 'dimensionsnr', 'namn' ],
-  enhet: [ 'kontonr', 'enhet' ],
-  flagga: [ 'x' ],
-  fnamn: [ 'företagsnamn' ],
-  fnr: [ 'företagsid' ],
-  format: [ 'PC8' ],
-  ftyp: [ 'Företagstyp' ],
-  gen: [ 'datum', 'sign' ],
-  ib: [ 'årsnr', 'konto', 'saldo', 'kvantitet' ],
-  konto: [ 'kontonr', 'kontonamn' ],
-  kptyp: [ 'typ' ],
-  ktyp: [ 'kontonr', 'kontotyp' ],
-  objekt: [ 'dimensionsnr', 'objektnr', 'objektnamn' ],
-  oib: [ 'årsnr', 'konto', { name: 'objekt', type: [ 'dimensionsnr', 'objektnr' ] }, 'saldo', 'kvantitet' ],
-  omfattn: [ 'datum' ],
-  orgnr: [ 'orgnr', 'förvnr', 'verknr' ],
-  oub: [ 'årsnr', 'konto', { name: 'objekt', type: [ 'dimensionsnr', 'objektnr' ] }, 'saldo', 'kvantitet' ],
-  pbudget: [ 'årsnr', 'period', 'konto', { name: 'objekt', type: [ 'dimensionsnr', 'objektnr' ] }, 'saldo', 'kvantitet' ],
-  program: [ 'programnamn', 'version' ],
-  prosa: [ 'text' ],
-  psaldo: [ 'årsnr', 'period', 'konto', { name: 'objekt', type: [ 'dimensionsnr', 'objektnr' ] }, 'saldo', 'kvantitet' ],
-  rar: [ 'årsnr', 'start', 'slut' ],
-  res: [ 'års', 'konto', 'saldo', 'kvantitet' ],
-  sietype: [ 'typnr' ],
-  sru: [ 'konto', 'SRU-kod' ],
-  taxar: [ 'år' ],
-  trans: [ 'kontonr', { name: 'objektlista', type: [ 'dimensionsnr', 'objektnr' ], many: true }, 'belopp', 'transdat', 'transtext', 'kvantitet', 'sign' ],
-  rtrans: [ 'kontonr', { name: 'objektlista', type: [ 'dimensionsnr', 'objektnr' ], many: true }, 'belopp', 'transdat', 'transtext', 'kvantitet', 'sign' ],
-  btrans: [ 'kontonr', { name: 'objektlista', type: [ 'dimensionsnr', 'objektnr' ], many: true }, 'belopp', 'transdat', 'transtext', 'kvantitet', 'sign' ],
-  ub: [ 'årsnr', 'konto', 'saldo', 'kvantitet' ],
-  underdim: [ 'dimensionsnr', 'namn', 'superdimension' ],
-  valuta: [ 'valutakod' ],
-  ver: [ 'serie', 'vernr', 'verdatum', 'vertext', 'regdatum', 'sign' ]
-}
-
-    export const Universal: SieNode[] = [
-      { etikett: PostType.Dim, dimensionsnr: '1', namn: 'Kostnadsställe / resultatenhet' },
-      {
-        etikett: PostType.Underdim, dimensionsnr: '2', namn: 'Kostnadsbärare', superdimension: '1',
-      },
-      { etikett: PostType.Dim, dimensionsnr: '6', namn: 'Projekt' },
-      { etikett: PostType.Dim, dimensionsnr: '7', namn: 'Anställd' },
-      { etikett: PostType.Dim, dimensionsnr: '8', namn: 'Kund' },
-      { etikett: PostType.Dim, dimensionsnr: '9', namn: 'Leverantör' },
-      { etikett: PostType.Dim, dimensionsnr: '10', namn: 'Faktura' },
-    ]
 
 export const list = (scan: SieNode[], etikett: string, attribs?: Record<string, any>) => {
   const list = [];
